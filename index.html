@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anil Bhan | L&D Manager & EV Training Leader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Anil Bhan | Interactive Dashboard - L&D Manager & EV Training Leader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --accent-light: #60a5fa;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --tertiary: #252d4a;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dark: #4f46e5;
+            --text: #f1f5f9;
+            --text-muted: #cbd5e1;
             --success: #10b981;
             --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         * {
@@ -29,23 +33,24 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #0f1438 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--primary);
+            background: var(--secondary);
         }
         ::-webkit-scrollbar-thumb {
             background: var(--accent);
-            border-radius: 4px;
+            border-radius: 5px;
         }
 
         /* Navigation */
@@ -53,33 +58,34 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             list-style: none;
         }
 
@@ -87,12 +93,13 @@
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
             position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--text);
+            color: var(--accent-light);
         }
 
         .nav-links a::after {
@@ -114,107 +121,105 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: var(--accent);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-top: 5rem;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin-bottom: 3rem;
             position: relative;
-            padding: 6rem 2rem 4rem;
-            background: radial-gradient(ellipse at top, var(--secondary) 0%, var(--primary) 70%);
+            overflow: hidden;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .hero-content {
-            max-width: 900px;
-            text-align: center;
             position: relative;
             z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
         }
 
-        .hero-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 50px;
-            color: var(--accent-light);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
+        .hero-text h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
-            line-height: 1.2;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            font-weight: 800;
         }
 
-        .hero h1 span {
+        .hero-text h1 span {
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease 0.4s both;
+            max-width: 500px;
         }
 
         .hero-stats {
             display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 3rem 0;
+            gap: 2rem;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s both;
+            margin-bottom: 2rem;
         }
 
-        .stat-item {
-            text-align: center;
+        .stat {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            min-width: 150px;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
+        .stat-value {
+            font-size: 2rem;
             font-weight: 800;
             color: var(--accent);
             display: block;
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            margin-top: 0.5rem;
         }
 
-        .hero-cta {
+        .hero-buttons {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.8s both;
         }
 
         .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
@@ -223,118 +228,187 @@
             gap: 0.5rem;
             cursor: pointer;
             border: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #2563eb);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--text);
-            border: 2px solid rgba(255,255,255,0.1);
+            color: var(--accent);
+            border: 2px solid var(--accent);
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
         }
 
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* About */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 20px;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
         }
 
-        .about-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .skills-grid {
+        /* Dashboard Grid */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .skill-card {
+        .card {
             background: var(--secondary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .skill-card:hover {
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
             border-color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
-        .skill-card i {
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
             font-size: 1.5rem;
             color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
 
-        .skill-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        .skill-card p {
+        /* Skills Section */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-box {
+            background: var(--secondary);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .skill-box:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 3px;
+            animation: fillProgress 1.5s ease-out;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+        }
+
+        .skill-percent {
             font-size: 0.85rem;
             color: var(--text-muted);
+            text-align: right;
         }
 
         /* Experience Timeline */
         .timeline {
             position: relative;
-            padding-left: 2rem;
+            padding-left: 30px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0;
+            left: 6px;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -343,29 +417,30 @@
 
         .timeline-item {
             position: relative;
-            padding-bottom: 3rem;
-            padding-left: 2rem;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.6s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateX(0);
+            margin-bottom: 2.5rem;
+            background: var(--secondary);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -2rem;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
+            left: -30px;
+            top: 2rem;
+            width: 14px;
+            height: 14px;
             background: var(--accent);
             border-radius: 50%;
             border: 3px solid var(--primary);
             box-shadow: 0 0 0 3px var(--accent);
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
         }
 
         .timeline-header {
@@ -373,56 +448,51 @@
             justify-content: space-between;
             align-items: start;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
             margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.25rem;
-            font-weight: 700;
         }
 
         .timeline-company {
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
         }
 
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
         .timeline-date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background: var(--secondary);
-            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.4rem 1rem;
             border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
         .timeline-location {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-content {
-            background: var(--secondary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            margin: 0.5rem 0 1rem 0;
         }
 
         .timeline-content ul {
             list-style: none;
-            padding: 0;
-        }
-
-        .timeline-content li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
             color: var(--text-muted);
         }
 
+        .timeline-content li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
         .timeline-content li::before {
-            content: '▸';
+            content: '→';
             position: absolute;
             left: 0;
             color: var(--accent);
@@ -430,16 +500,44 @@
 
         .impact-badge {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(16, 185, 129, 0.1);
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(16, 185, 129, 0.15);
             color: var(--success);
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-top: 0.5rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        /* Certifications */
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: var(--secondary);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Certifications Grid */
         .certs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -448,12 +546,12 @@
 
         .cert-card {
             background: var(--secondary);
-            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            text-align: center;
             transition: all 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
         .cert-card::before {
@@ -461,19 +559,19 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent), var(--accent-light));
         }
 
         .cert-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
             border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .cert-card i {
-            font-size: 2rem;
+        .cert-icon {
+            font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
         }
@@ -485,10 +583,10 @@
 
         .cert-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        /* Education */
+        /* Education Section */
         .edu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -497,28 +595,26 @@
 
         .edu-card {
             background: var(--secondary);
-            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
             transition: all 0.3s;
         }
 
         .edu-card:hover {
             border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
         }
 
-        .edu-card .edu-icon {
+        .edu-icon {
             width: 50px;
             height: 50px;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
-        }
-
-        .edu-card .edu-icon i {
             font-size: 1.5rem;
             color: var(--accent);
         }
@@ -528,57 +624,51 @@
             margin-bottom: 0.5rem;
         }
 
-        .edu-card .edu-degree {
+        .edu-degree {
             color: var(--accent);
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
-        .edu-card .edu-date {
+        .edu-date {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        /* Contact */
-        .contact-section {
-            background: var(--secondary);
-            border-radius: 20px;
-            padding: 4rem;
-            text-align: center;
-            position: relative;
+        .progress-bar {
+            height: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 4px;
+            margin-top: 1rem;
             overflow: hidden;
         }
 
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--accent));
+            width: 85%;
+            border-radius: 4px;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-content {
-            position: relative;
-            z-index: 1;
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 100%);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin-bottom: 3rem;
         }
 
         .contact-section h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
         .contact-section p {
             color: var(--text-muted);
             margin-bottom: 2rem;
-            max-width: 500px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -586,7 +676,7 @@
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
 
@@ -594,33 +684,36 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 1rem 2rem;
+            padding: 0.9rem 1.5rem;
             background: var(--primary);
-            border-radius: 12px;
+            border-radius: 10px;
             text-decoration: none;
             color: var(--text);
             font-weight: 600;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-size: 0.95rem;
         }
 
         .contact-link:hover {
             transform: translateY(-3px);
             border-color: var(--accent);
-            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         .contact-link i {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--accent);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem;
             color: var(--text-muted);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+            margin-top: 3rem;
         }
 
         .social-links {
@@ -641,17 +734,18 @@
             color: var(--text-muted);
             text-decoration: none;
             transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         .social-links a:hover {
             background: var(--accent);
             color: white;
             transform: translateY(-3px);
+            border-color: var(--accent);
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes slideInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -663,14 +757,7 @@
         }
 
         .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            animation: slideInUp 0.6s ease-out;
         }
 
         /* Mobile Responsive */
@@ -684,7 +771,7 @@
                 background: var(--secondary);
                 flex-direction: column;
                 padding: 1rem;
-                gap: 1rem;
+                gap: 0.5rem;
             }
 
             .nav-links.active {
@@ -695,87 +782,54 @@
                 display: block;
             }
 
-            .hero-stats {
-                gap: 1.5rem;
+            .hero-content {
+                flex-direction: column;
             }
 
-            .about-grid {
+            .profile-image {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .dashboard-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
 
-            .skills-grid {
+            .charts-grid {
                 grid-template-columns: 1fr;
             }
 
-            .timeline {
-                padding-left: 1rem;
-            }
-
-            .timeline-item {
-                padding-left: 1rem;
-            }
-
-            .contact-section {
-                padding: 2rem;
-            }
-
-            section {
-                padding: 3rem 1.5rem;
+            .container {
+                padding: 1rem;
             }
         }
 
-        /* Particle effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
-            }
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
-    <div class="particles" id="particles"></div>
-
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">AB.</div>
+            <div class="logo">AB Dashboard</div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#home">Dashboard</a></li>
+                <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#education">Education</a></li>
@@ -787,316 +841,415 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-badge">🚀 Open to New Opportunities</div>
-            <h1>Hi, I'm <span>Anil Bhan</span></h1>
-            <p class="hero-subtitle">Award-winning L&D Manager & EV Training Leader transforming automotive organizations through strategic workforce development</p>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <div class="badge">🎯 L&D Innovator | EV Training Specialist</div>
+                    <h1>Hi, I'm <span>Anil Bhan</span></h1>
+                    <p class="hero-subtitle">Transforming automotive organizations through strategic workforce development, EV technology training, and data-driven L&D solutions</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-value">10K+</span>
+                            <span class="stat-label">Employees Impacted</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">800+</span>
+                            <span class="stat-label">EV Technicians</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">48</span>
+                            <span class="stat-label">Depots Transformed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">14+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                    </div>
 
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">10K+</span>
-                    <span class="stat-label">Employees Impacted</span>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i> Get In Touch
+                        </a>
+                        <a href="#experience" class="btn btn-secondary">
+                            <i class="fas fa-briefcase"></i> View Experience
+                        </a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">800+</span>
-                    <span class="stat-label">EV Technicians Trained</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">48</span>
-                    <span class="stat-label">Depots Transformed</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">14+</span>
-                    <span class="stat-label">Years Experience</span>
+
+                <div class="profile-image fade-in">
+                    <i class="fas fa-user-tie"></i>
                 </div>
             </div>
+        </section>
 
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Get In Touch
-                </a>
-                <a href="#experience" class="btn btn-secondary">
-                    <i class="fas fa-briefcase"></i> View Experience
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-header fade-in">
-            <h2>About Me</h2>
-            <p>Strategic L&D professional driving organizational excellence through talent development</p>
-        </div>
-
-        <div class="about-grid">
-            <div class="about-text fade-in">
-                <p>I'm an award-winning Learning & Development Manager and EV Training Leader with over 14 years of experience transforming automotive organizations through strategic workforce development.</p>
-                <p>Currently serving as <strong>Manager Technical Training at JBM Auto Limited</strong>, I architect enterprise-wide technical training ecosystems across 48 depots nationwide, driving workforce transformation in electric vehicle technology.</p>
-                <p>My key expertise spans <strong>EV Technology Training, Automotive Workforce Development, Digital Transformation, L&D Strategy,</strong> and <strong>Change Management</strong>. I've delivered measurable business impact including 250% accessibility increase through eLearning conversion and 30% increase in technical proficiency.</p>
-                <p>Currently pursuing an Executive MBA in Operations & Supply Chain Management. Open to Head of Training & Development, EV Training Manager, and Automotive Training Director roles across India.</p>
-            </div>
-
-            <div class="skills-grid fade-in">
-                <div class="skill-card">
-                    <i class="fas fa-car-battery"></i>
-                    <h4>EV Technology</h4>
-                    <p>Battery Management, Powertrains, ADAS</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h4>Training Development</h4>
-                    <p>eLearning, Blended Learning, SOPs</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-chess-knight"></i>
-                    <h4>Strategic Planning</h4>
-                    <p>L&D Strategy, Change Management</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-link"></i>
-                    <h4>Supply Chain</h4>
-                    <p>Operations, Logistics, Procurement</p>
-                </div>
-                <div class="skill-card">
+        <!-- Key Metrics -->
+        <section class="dashboard-grid" id="metrics">
+            <div class="card fade-in">
+                <div class="card-icon">
                     <i class="fas fa-chart-line"></i>
-                    <h4>Six Sigma</h4>
-                    <p>Black Belt, Quality Tools, FEMA</p>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-users-cog"></i>
-                    <h4>Team Leadership</h4>
-                    <p>Workshop Management, Coaching</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience">
-        <div class="section-header fade-in">
-            <h2>Professional Experience</h2>
-            <p>A track record of delivering quantifiable business impact across leading automotive organizations</p>
-        </div>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">JBM Auto Limited</div>
-                        <div class="timeline-title">Manager Technical Training</div>
-                    </div>
-                    <span class="timeline-date">Oct 2023 - Present</span>
-                </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Delhi, India</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Architected enterprise-wide technical training ecosystem across <strong>48 depots</strong> nationwide</li>
-                        <li>Orchestrated <strong>100+ training programs</strong> annually reaching 1,200+ technicians with 95% certification success rate</li>
-                        <li>Trained <strong>500+ technical personnel</strong> on Battery Cooling Systems, HV Layout, LVA, and HV Fire & Safety</li>
-                        <li>Certified 35%+ of JBM Aftersales skilled workforce and 60% in basic skilled HV training</li>
-                        <li>Converted 75+ modules into interactive eLearning, increasing engagement by 42%</li>
-                        <li>Managed ₹2.5Cr+ annual budget with 98% utilization efficiency</li>
-                        <li>Achieved zero non-conformities in QMS audits for 2 consecutive years</li>
-                    </ul>
-                    <span class="impact-badge"><i class="fas fa-arrow-up"></i> 32% Reduction in Vehicle Downtime</span>
-                    <span class="impact-badge"><i class="fas fa-arrow-up"></i> Customer Satisfaction: 78% → 94%</span>
-                </div>
+                <h3>Training Impact</h3>
+                <p>Achieved 250% increase in eLearning accessibility and 30% boost in technical proficiency across organization</p>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">Tech Mahindra BPS</div>
-                        <div class="timeline-title">Senior L&D Specialist</div>
-                    </div>
-                    <span class="timeline-date">Apr 2021 - Sep 2023</span>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-battery-full"></i>
                 </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Engineered scalable training programs for Bombardier Recreational Products (BRP) warranty operations</li>
-                        <li>Led <strong>23 batches</strong> of New Hire Training for 500+ associates with 100% onboarding completion</li>
-                        <li>Delivered <strong>85+ Net Promoter Score</strong> through engaging, learner-centric training design</li>
-                        <li>Designed comprehensive warranty diagnostic training modules reducing processing time by 35%</li>
-                        <li>Created blended learning experiences combining virtual, classroom, and on-the-job training</li>
-                        <li>Implemented continuous feedback loops and coaching protocols to drive behavioral change</li>
-                    </ul>
-                    <span class="impact-badge"><i class="fas fa-arrow-up"></i> 6-7% Warranty Cost Savings (vs 5.6% benchmark)</span>
-                </div>
+                <h3>EV Expertise</h3>
+                <p>Specialized in Battery Management, ADAS, Powertrains with comprehensive HV Safety & Fire training programs</p>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">Tata Motors</div>
-                        <div class="timeline-title">Technical Trainer</div>
-                    </div>
-                    <span class="timeline-date">May 2017 - Apr 2021</span>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
                 </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Lucknow, Uttar Pradesh</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Conducted <strong>264+ days</strong> of technical training annually across Pan-India dealership network</li>
-                        <li>Trained 800+ service technicians on BSIV/BSVI emission systems (DOC, SCR, EGR, ASC UL2.2)</li>
-                        <li>Resolved 95% of field issues on first intervention, minimizing vehicle downtime</li>
-                        <li>Performed ECU calibration and software updates across commercial vehicle platforms</li>
-                        <li>Utilized diagnostic tools (Insite, Samtech) for root cause analysis</li>
-                        <li>Reduced average diagnostic time by 40% through systematic troubleshooting protocols</li>
-                    </ul>
-                    <span class="impact-badge"><i class="fas fa-arrow-up"></i> 92% Customer Satisfaction Score</span>
-                </div>
+                <h3>Performance Metrics</h3>
+                <p>95% certification success rate, 32% reduction in downtime, Customer satisfaction elevated from 78% to 94%</p>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">Eicher Trucks & Buses</div>
-                        <div class="timeline-title">Workshop Manager</div>
-                    </div>
-                    <span class="timeline-date">Jan 2016 - Apr 2017</span>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-briefcase"></i>
                 </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Directed workshop operations optimizing efficiency through strategic labor assignments</li>
-                        <li>Streamlined workshop operations reducing job completion times by 15%</li>
-                        <li>Implemented efficient labor allocation strategy resulting in 10% increase in productivity</li>
-                        <li>Enhanced project efficiency by 20% through streamlined quality check processes</li>
-                        <li>Managed materials purchasing effectively leading to 12% reduction in costs</li>
-                        <li>Improved staff skills by 25% through tailored training programs</li>
-                    </ul>
-                </div>
+                <h3>Leadership</h3>
+                <p>Managed ₹2.5Cr+ annual training budget, led 100+ programs annually, transformed 48 depots nationwide</p>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">Tata Motors</div>
-                        <div class="timeline-title">Workshop Manager</div>
-                    </div>
-                    <span class="timeline-date">Aug 2013 - Aug 2015</span>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-cogs"></i>
                 </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Delhi & Jammu</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Directed workshop activities optimizing resource utilization and minimizing costs</li>
-                        <li>Analyzed procedures leading to <strong>40% cost savings</strong> in workshop operations</li>
-                        <li>Oversaw maintenance of tools reducing repair costs by 30%</li>
-                        <li>Facilitated team training resulting in <strong>47% increase in team productivity</strong></li>
-                        <li>Supervised repair and overhaul of vehicular equipment ensuring compliance with specifications</li>
-                    </ul>
-                </div>
+                <h3>Technical Skills</h3>
+                <p>Six Sigma Black Belt, FEMA, ECU calibration, diagnostic tools mastery (Insite, Samtech)</p>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <div>
-                        <div class="timeline-company">Kodak Peahen Print Solution</div>
-                        <div class="timeline-title">Area Sales Manager</div>
-                    </div>
-                    <span class="timeline-date">Sep 2011 - Jan 2013</span>
-                </div>
-                <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai</div>
-                <div class="timeline-content">
-                    <ul>
-                        <li>Led strategic sales initiatives increasing lead generation through targeted campaigns</li>
-                        <li>Conducted sales calls, developed proposals, and maintained client relations</li>
-                        <li>Analyzed competitors' activities weekly generating detailed strategic reports</li>
-                        <li>Collaborated with senior-level clients to deliver customized solutions</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications">
-        <div class="section-header fade-in">
-            <h2>Certifications</h2>
-            <p>Industry-recognized credentials demonstrating expertise in quality, EV technology, and continuous improvement</p>
-        </div>
-
-        <div class="certs-grid fade-in">
-            <div class="cert-card">
-                <i class="fas fa-award"></i>
-                <h4>Six Sigma Black Belt</h4>
-                <p>The Define Phase for the 6σ Black Belt - Advanced process improvement and quality management certification</p>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-car"></i>
-                <h4>Electric Vehicle Specialization</h4>
-                <p>E-Learning course on Self-Charged Hybrid Electric Vehicle - Comprehensive EV technology training</p>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-bolt"></i>
-                <h4>Electric Cars Introduction</h4>
-                <p>Fundamental certification in electric vehicle technology and sustainable mobility solutions</p>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-shield-alt"></i>
-                <h4>FEMA Quality Tool</h4>
-                <p>Failure Mode and Effects Analysis certification for risk assessment and quality assurance</p>
-            </div>
-            <div class="cert-card">
-                <i class="fas fa-cogs"></i>
-                <h4>Six Sigma Blended Part 2</h4>
-                <p>Advanced Six Sigma methodology certification for process optimization and waste reduction</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education">
-        <div class="section-header fade-in">
-            <h2>Education</h2>
-            <p>Academic foundation combining business administration with technical automotive expertise</p>
-        </div>
-
-        <div class="edu-grid fade-in">
-            <div class="edu-card">
-                <div class="edu-icon">
+            <div class="card fade-in">
+                <div class="card-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <h4>Symbiosis International University</h4>
-                <div class="edu-degree">Executive MBA - Operations & Supply Chain Management</div>
-                <div class="edu-date">April 2024 - June 2026 (Pursuing)</div>
+                <h3>Continuous Learning</h3>
+                <p>Pursuing Executive MBA in Operations & Supply Chain Management at Symbiosis International University</p>
             </div>
-            <div class="edu-card">
-                <div class="edu-icon">
-                    <i class="fas fa-university"></i>
-                </div>
-                <h4>Madurai Kamaraj University</h4>
-                <div class="edu-degree">Bachelor of Business Administration (BBA)</div>
-                <div class="edu-date">Business Administration, Management and Operations</div>
-            </div>
-            <div class="edu-card">
-                <div class="edu-icon">
-                    <i class="fas fa-wrench"></i>
-                </div>
-                <h4>Govt. Polytechnic Ambala</h4>
-                <div class="edu-degree">High School Diploma - Automobile Engineering</div>
-                <div class="edu-date">January 2007 - April 2010</div>
-            </div>
-            <div class="edu-card">
-                <div class="edu-icon">
-                    <i class="fas fa-school"></i>
-                </div>
-                <h4>Shoba Model High School</h4>
-                <div class="edu-degree">12th Grade - Science Stream</div>
-                <div class="edu-date">General Science</div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="contact-section fade-in">
-            <div class="contact-content">
-                <h2>Let's Connect</h2>
-                <p>Open to Head of Training & Development, EV Training Manager, and Automotive Training Director roles across India. Available for remote & on-site opportunities.</p>
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i> Core Competencies
+            </h2>
+            <div class="skills-container">
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-car-battery"></i> EV Technology Training
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                    <div class="skill-percent">95%</div>
+                </div>
+
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-chalkboard-teacher"></i> L&D Strategy
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 92%"></div>
+                    </div>
+                    <div class="skill-percent">92%</div>
+                </div>
+
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-chart-bar"></i> Digital Transformation
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                    <div class="skill-percent">88%</div>
+                </div>
+
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-chess-knight"></i> Change Management
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                    <div class="skill-percent">90%</div>
+                </div>
+
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-users"></i> Team Leadership
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 93%"></div>
+                    </div>
+                    <div class="skill-percent">93%</div>
+                </div>
+
+                <div class="skill-box">
+                    <div class="skill-name">
+                        <i class="fas fa-cogs"></i> Six Sigma (Black Belt)
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 89%"></div>
+                    </div>
+                    <div class="skill-percent">89%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section id="analytics" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i> Performance Analytics
+            </h2>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Impact Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Training Programs Growth</h3>
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Success Metrics</h3>
+                    <div class="chart-container">
+                        <canvas id="metricsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i> Professional Experience
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-company">JBM Auto Limited</div>
+                            <div class="timeline-title">Manager Technical Training</div>
+                        </div>
+                        <span class="timeline-date">Oct 2023 - Present</span>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Delhi, India</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>Architected enterprise-wide technical training ecosystem across <strong>48 depots</strong> nationwide</li>
+                            <li>Orchestrated <strong>100+ training programs</strong> annually reaching 1,200+ technicians (95% success rate)</li>
+                            <li>Trained <strong>500+ personnel</strong> on Battery Cooling, HV Layout, LVA, HV Fire & Safety</li>
+                            <li>Converted 75+ modules to interactive eLearning (+42% engagement)</li>
+                            <li>Managed ₹2.5Cr+ annual budget with 98% efficiency</li>
+                        </ul>
+                        <span class="impact-badge"><i class="fas fa-arrow-up"></i> 32% Vehicle Downtime Reduction</span>
+                        <span class="impact-badge"><i class="fas fa-arrow-up"></i> Customer Satisfaction: 78% → 94%</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-company">Tech Mahindra BPS</div>
+                            <div class="timeline-title">Senior L&D Specialist</div>
+                        </div>
+                        <span class="timeline-date">Apr 2021 - Sep 2023</span>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>Engineered scalable training programs for Bombardier warranty operations</li>
+                            <li>Led <strong>23 training batches</strong> for 500+ associates (100% completion)</li>
+                            <li>Delivered <strong>85+ NPS score</strong> through learner-centric design</li>
+                            <li>Designed diagnostic training modules reducing processing time by 35%</li>
+                        </ul>
+                        <span class="impact-badge"><i class="fas fa-arrow-up"></i> 6-7% Warranty Cost Savings</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-company">Tata Motors</div>
+                            <div class="timeline-title">Technical Trainer</div>
+                        </div>
+                        <span class="timeline-date">May 2017 - Apr 2021</span>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Lucknow, Uttar Pradesh</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>Conducted <strong>264+ training days</strong> annually across Pan-India dealership network</li>
+                            <li>Trained <strong>800+ technicians</strong> on BSIV/BSVI emission systems</li>
+                            <li>Resolved 95% field issues on first intervention</li>
+                            <li>Reduced diagnostic time by 40% through systematic protocols</li>
+                        </ul>
+                        <span class="impact-badge"><i class="fas fa-arrow-up"></i> 92% Customer Satisfaction</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-company">Eicher Trucks & Buses</div>
+                            <div class="timeline-title">Workshop Manager</div>
+                        </div>
+                        <span class="timeline-date">Jan 2016 - Apr 2017</span>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>Optimized workshop operations reducing job times by 15%</li>
+                            <li>Implemented labor allocation strategies (+10% productivity)</li>
+                            <li>Enhanced efficiency by 20% through streamlined QC processes</li>
+                            <li>Achieved 12% cost reduction in materials purchasing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-header">
+                        <div>
+                            <div class="timeline-company">Tata Motors</div>
+                            <div class="timeline-title">Workshop Manager</div>
+                        </div>
+                        <span class="timeline-date">Aug 2013 - Aug 2015</span>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Delhi & Jammu</div>
+                    <div class="timeline-content">
+                        <ul>
+                            <li>Directed workshop operations optimizing resource utilization</li>
+                            <li><strong>40% cost savings</strong> through procedure analysis</li>
+                            <li>Reduced tool repair costs by 30%</li>
+                            <li><strong>47% team productivity increase</strong> through training</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-award"></i> Certifications & Credentials
+            </h2>
+            <div class="certs-grid">
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h4>Six Sigma Black Belt</h4>
+                    <p>Advanced process improvement & quality management certification</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-battery-full"></i>
+                    </div>
+                    <h4>EV Specialization</h4>
+                    <p>Comprehensive electric vehicle technology & hybrid systems training</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h4>Electric Cars Introduction</h4>
+                    <p>Sustainable mobility & EV technology fundamentals certification</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>FEMA Quality Tool</h4>
+                    <p>Failure Mode & Effects Analysis for risk assessment & quality assurance</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h4>Six Sigma Part 2</h4>
+                    <p>Advanced methodology for process optimization & waste reduction</p>
+                </div>
+
+                <div class="cert-card fade-in">
+                    <div class="cert-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>Professional Development</h4>
+                    <p>Continuous learning in automotive excellence & workforce development</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <h2 class="section-title">
+                <i class="fas fa-book"></i> Educational Background
+            </h2>
+            <div class="edu-grid">
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>Symbiosis International University</h4>
+                    <div class="edu-degree">Executive MBA - Operations & Supply Chain</div>
+                    <div class="edu-date">April 2024 - June 2026 (Pursuing)</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h4>Madurai Kamaraj University</h4>
+                    <div class="edu-degree">Bachelor of Business Administration (BBA)</div>
+                    <div class="edu-date">Business Administration & Management</div>
+                </div>
+
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h4>Govt. Polytechnic Ambala</h4>
+                    <div class="edu-degree">Diploma - Automobile Engineering</div>
+                    <div class="edu-date">January 2007 - April 2010</div>
+                </div>
+
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h4>Shoba Model High School</h4>
+                    <div class="edu-degree">12th Grade - Science Stream</div>
+                    <div class="edu-date">General Science</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-section fade-in">
+                <h2>Let's Connect & Collaborate</h2>
+                <p>Open to Head of Training & Development, EV Training Manager, and Automotive Training Director roles across India. Available for remote, hybrid & on-site opportunities.</p>
 
                 <div class="contact-links">
                     <a href="mailto:anil.bhan12345@gmail.com" class="contact-link">
@@ -1113,18 +1266,24 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https://www.linkedin.com/in/anilbhan1" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="mailto:anil.bhan12345@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="tel:+917038331388"><i class="fas fa-phone"></i></a>
+            <a href="https://www.linkedin.com/in/anilbhan1" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:anil.bhan12345@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+917038331388" title="Phone">
+                <i class="fas fa-phone"></i>
+            </a>
         </div>
-        <p>© 2026 Anil Bhan. All rights reserved.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion for automotive excellence</p>
+        <p>© 2026 Anil Bhan. Interactive Dashboard.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Transforming Automotive Organizations Through Strategic Workforce Development</p>
     </footer>
 
     <script>
@@ -1136,14 +1295,130 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close mobile menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
         });
 
-        // Scroll Animations
+        // Chart.js Configuration
+        const chartDefaults = {
+            color: '#cbd5e1',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            borderColor: '#6366f1',
+            gridColor: 'rgba(99, 102, 241, 0.1)'
+        };
+
+        // Impact Distribution Chart
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        new Chart(impactCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Employees Impacted', 'Technicians Trained', 'Depots Transformed'],
+                datasets: [{
+                    data: [10000, 800, 48],
+                    backgroundColor: ['#6366f1', '#818cf8', '#a5b4fc'],
+                    borderColor: '#0a0e27',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: { color: chartDefaults.color, font: { size: 12 } }
+                    }
+                }
+            }
+        });
+
+        // Growth Chart
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'line',
+            data: {
+                labels: ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Training Programs',
+                    data: [15, 25, 40, 55, 70, 85, 95, 105],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#0a0e27',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { labels: { color: chartDefaults.color } }
+                },
+                scales: {
+                    y: {
+                        ticks: { color: chartDefaults.color },
+                        grid: { color: chartDefaults.gridColor }
+                    },
+                    x: {
+                        ticks: { color: chartDefaults.color },
+                        grid: { color: chartDefaults.gridColor }
+                    }
+                }
+            }
+        });
+
+        // Metrics Chart
+        const metricsCtx = document.getElementById('metricsChart').getContext('2d');
+        new Chart(metricsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Certification Rate', 'Engagement', 'Satisfaction', 'Budget Efficiency'],
+                datasets: [{
+                    label: 'Performance %',
+                    data: [95, 92, 94, 98],
+                    backgroundColor: ['#6366f1', '#818cf8', '#a5b4fc', '#c7d2fe'],
+                    borderColor: '#6366f1',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { labels: { color: chartDefaults.color } }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: chartDefaults.color },
+                        grid: { color: chartDefaults.gridColor },
+                        max: 100
+                    },
+                    y: {
+                        ticks: { color: chartDefaults.color },
+                        grid: { color: chartDefaults.gridColor }
+                    }
+                }
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1152,40 +1427,14 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
+        document.querySelectorAll('.card, .timeline-item, .cert-card, .edu-card, .skill-box').forEach(el => {
             observer.observe(el);
-        });
-
-        // Particle Animation
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 25;
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
 
         // Active navigation highlighting
@@ -1196,35 +1445,18 @@
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
                 if (scrollY >= (sectionTop - 200)) {
                     current = section.getAttribute('id');
                 }
             });
 
             navItems.forEach(item => {
-                item.classList.remove('active');
+                item.style.color = '';
                 if (item.getAttribute('href') === '#' + current) {
-                    item.classList.add('active');
+                    item.style.color = '#6366f1';
                 }
             });
         });
-
-        // Add typing effect to hero subtitle
-        const subtitle = document.querySelector('.hero-subtitle');
-        const text = subtitle.textContent;
-        subtitle.textContent = '';
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                subtitle.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 30);
-            }
-        }
-
-        setTimeout(typeWriter, 1000);
     </script>
 </body>
 </html>
